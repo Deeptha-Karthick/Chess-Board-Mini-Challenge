@@ -1,0 +1,27 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.cell {
+  height: 50px;
+  width: 50px;
+  border: 2px solid black;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.selected {
+  background-color: red;
+}
+
+.black {
+  background-color: black;
+}
+
+.maroon {
+  background-color: maroon;
+}
