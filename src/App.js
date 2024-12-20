@@ -22,7 +22,9 @@ export default function App() {
     } else {
       return diagonals.find((el) => el[0] === rowIndex && el[1] === colIndex)
         ? "selected"
-        : "";
+        : rowIndex % 2 === colIndex % 2
+        ? "white"
+        : "black";
     }
   };
 
@@ -41,11 +43,11 @@ export default function App() {
 
     //Left Diagonal
     getDiagonal(rowIndex, colIndex, -1, -1, leftDiagonal); //Top Left Diagonal
-    getDiagonal(rowIndex, colIndex, 1, -1, leftDiagonal); //Bottom Right Diagonal
+    getDiagonal(rowIndex, colIndex, 1, 1, leftDiagonal); //Bottom Right Diagonal
 
     //Right Diagonal
     getDiagonal(rowIndex, colIndex, -1, 1, rightDiagonal); //Top Right Diagonal
-    getDiagonal(rowIndex, colIndex, 1, 1, rightDiagonal); //Bottom Right Diagonal
+    getDiagonal(rowIndex, colIndex, 1, -1, rightDiagonal); //Bottom Right Diagonal
     console.log("leftDiagonal", leftDiagonal);
     console.log("rightDiagonal", rightDiagonal);
     setDiagonals([...leftDiagonal, ...rightDiagonal]);
@@ -65,8 +67,8 @@ export default function App() {
                   <div
                     key={colIndex}
                     className={`cell ${
-                      rowIndex % 2 === colIndex % 2 ? "white" : "black"
-                    } ${selected && cellClassName(rowIndex, colIndex)}`}
+                      selected && cellClassName(rowIndex, colIndex)
+                    }`}
                     onClick={() => onCellClick(rowIndex, colIndex)}
                   ></div>
                 );
@@ -79,3 +81,8 @@ export default function App() {
   );
 }
 
+/*
+
+
+
+*/
