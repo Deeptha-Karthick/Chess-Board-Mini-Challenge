@@ -42,12 +42,12 @@ export default function App() {
     setSelected([rowIndex, colIndex]);
 
     //Left Diagonal
-    getDiagonal(rowIndex, colIndex, -1, -1, leftDiagonal); //Top Left Diagonal
-    getDiagonal(rowIndex, colIndex, 1, 1, leftDiagonal); //Bottom Right Diagonal
+    getDiagonal(rowIndex, colIndex, -1, -1, leftDiagonal); //Top Left 
+    getDiagonal(rowIndex, colIndex, 1, 1, leftDiagonal); //Bottom Right
 
     //Right Diagonal
-    getDiagonal(rowIndex, colIndex, -1, 1, rightDiagonal); //Top Right Diagonal
-    getDiagonal(rowIndex, colIndex, 1, -1, rightDiagonal); //Bottom Right Diagonal
+    getDiagonal(rowIndex, colIndex, -1, 1, rightDiagonal); //Top Right 
+    getDiagonal(rowIndex, colIndex, 1, -1, rightDiagonal); //Bottom Left
     console.log("leftDiagonal", leftDiagonal);
     console.log("rightDiagonal", rightDiagonal);
     setDiagonals([...leftDiagonal, ...rightDiagonal]);
