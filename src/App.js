@@ -15,17 +15,6 @@ export default function App() {
 
   console.log("diagonals", diagonals);
 
-  const getTopLeftDiagonal = (rowIndex, colIndex) => {
-    let newRowIndex = rowIndex;
-    let newcolIndex = colIndex;
-    if (rowIndex === 0 || colIndex === 0) {
-      return;
-    }
-    leftDiagonal.push([newRowIndex - 1, newcolIndex - 1]);
-
-    return getTopLeftDiagonal(newRowIndex - 1, newcolIndex - 1);
-  };
-
   const cellClassName = (rowIndex, colIndex) => {
     let className = "";
     if (selected && selected[0] === rowIndex && selected[1] === colIndex) {
@@ -36,47 +25,27 @@ export default function App() {
         : "";
     }
   };
-  const getBottomRightDiagonal = (rowIndex, colIndex) => {
-    let newRowIndex = rowIndex;
-    let newcolIndex = colIndex;
-    if (rowIndex === 7 || colIndex === 7) {
+
+  const getDiagonal = (rowIndex, colIndex, rowStep, colStep, diagonal) => {
+    if (rowIndex < 0 || rowIndex > 7 || colIndex < 0 || colIndex > 7) {
       return;
     }
-    leftDiagonal.push([newRowIndex + 1, newcolIndex + 1]);
-
-    return getBottomRightDiagonal(newRowIndex + 1, newcolIndex + 1);
-  };
-
-  const getTopRightDiagonal = (rowIndex, colIndex) => {
-    let newRowIndex = rowIndex;
-    let newcolIndex = colIndex;
-    if (rowIndex === 0 || colIndex === 7) {
-      return;
-    }
-    rightDiagonal.push([newRowIndex - 1, newcolIndex + 1]);
-
-    return getTopRightDiagonal(newRowIndex - 1, newcolIndex + 1);
-  };
-
-  const getBottomLeftDiagonal = (rowIndex, colIndex) => {
-    let newRowIndex = rowIndex;
-    let newcolIndex = colIndex;
-    if (rowIndex === 7 || colIndex === 0) {
-      return;
-    }
-    rightDiagonal.push([newRowIndex + 1, newcolIndex - 1]);
-
-    return getBottomLeftDiagonal(newRowIndex + 1, newcolIndex - 1);
+    diagonal.push([rowIndex, colIndex]);
+    let newRowIndex = rowIndex + rowStep;
+    let newcolIndex = colIndex + colStep;
+    return getDiagonal(newRowIndex, newcolIndex, rowStep, colStep, diagonal);
   };
 
   const onCellClick = (rowIndex, colIndex) => {
     setSelected([rowIndex, colIndex]);
 
     //Left Diagonal
-    getTopLeftDiagonal(rowIndex, colIndex);
-    getBottomRightDiagonal(rowIndex, colIndex);
-    getTopRightDiagonal(rowIndex, colIndex);
-    getBottomLeftDiagonal(rowIndex, colIndex);
+    getDiagonal(rowIndex, colIndex, -1, -1, leftDiagonal); //Top Left Diagonal
+    getDiagonal(rowIndex, colIndex, 1, -1, leftDiagonal); //Bottom Right Diagonal
+
+    //Right Diagonal
+    getDiagonal(rowIndex, colIndex, -1, 1, rightDiagonal); //Top Right Diagonal
+    getDiagonal(rowIndex, colIndex, 1, 1, rightDiagonal); //Bottom Right Diagonal
     console.log("leftDiagonal", leftDiagonal);
     console.log("rightDiagonal", rightDiagonal);
     setDiagonals([...leftDiagonal, ...rightDiagonal]);
@@ -110,8 +79,3 @@ export default function App() {
   );
 }
 
-/*
-
-
-
-*/
